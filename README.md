@@ -68,14 +68,14 @@ In cases where there is no installed entry point, you can use this method instea
 You can create entry points for `clickqt` in two steps:
 * Create the control for the GUI as a variable (in a file named `somefile.py` in the top-level directory of package `somepackage`):
   ``` python
-  from clickqt import qt_gui_from_click
+  from clickqt import qtgui_from_click
   import click
 
   @click.command(...)
   def foo(...):
     pass
 
-  ui_handle = qt_gui_from_click(foo)
+  ui_handle = qtgui_from_click(foo)
   ```
 * Then reference `ui_handle` in the `gui_scripts` section of your `pyproject.toml` file like this:
   ``` python
@@ -88,7 +88,7 @@ After installing, you can run this entry point by typing `gui` in your console, 
 If you decide to design your own click.type then it would be normally mapped to a simple Textfield, if you do not provide additional information in the form of a dictionary.
 It is important to note that the behaviour you want to invoke must also be provided by you, since the Qt-Widgets have different kind of getter and setter functions. This means that aside from you desired Qt-Widget you have to pass the getter function and the setter function for the customized type in a tuple, while your customized type is the key of the dictionary.
 ```python
-from clickqt import qt_gui_from_click
+from clickqt import qtgui_from_click
   import click
 
   @click.command(...)
@@ -103,7 +103,7 @@ from clickqt import qt_gui_from_click
   def custom_setter(widget: "CustomWidget", val):
       widget.widget.setValue(val)
 
-  ui_handle = qt_gui_from_click(foo, {BasedIntParamType: (QSpinBox, custom_getter, custom_setter)})
+  ui_handle = qtgui_from_click(foo, {BasedIntParamType: (QSpinBox, custom_getter, custom_setter)})
 ```
 This can be referenced externally via an option before the arguments:
 ```
